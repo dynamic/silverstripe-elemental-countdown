@@ -29,7 +29,7 @@ class ElementCountDownTest extends SapphireTest
     }
 
     /**
-     * 
+     *
      */
     public function testValidate()
     {
