@@ -80,7 +80,7 @@ class ElementCountDownTest extends SapphireTest
         $element = $this->objFromFixture(ElementCountDown::class, 'elapse');
         $config = $element->getClientConfig();
 
-        $this->assertEquals(json_decode($config->getField('End')), $element->End);
+        $this->assertEquals(json_decode($config->getField('End')), $element->End());
         $this->assertEquals(json_decode($config->getField('Elapse')), $element->Elapse);
     }
 }
