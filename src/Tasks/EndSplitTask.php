@@ -55,7 +55,12 @@ class EndSplitTask extends BuildTask
             $end = $this->getEndField($element->ID);
 
             // because $end->Date() doesn't return in ISO format, nor does it allow a custom format to be passed
-            $formatter = $end->getCustomFormatter(null, $end->getISOFormat(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+            $formatter = $end->getCustomFormatter(
+                null,
+                $end->getISOFormat(),
+                IntlDateFormatter::MEDIUM,
+                IntlDateFormatter::NONE
+            );
             $element->EndDate = $formatter->format($end->getTimestamp());
             $element->EndTime = $end->Time();
 
