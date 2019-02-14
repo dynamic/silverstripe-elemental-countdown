@@ -58,15 +58,6 @@ class ElementCountDown extends BaseElement
     private $client_config;
 
     /**
-     * Sets the Date field to the current date.
-     */
-    public function populateDefaults()
-    {
-        $this->End = date('Y-m-d', strtotime("+30 days"));
-        parent::populateDefaults();
-    }
-
-    /**
      * @return string
      */
     public function getSummary()
