@@ -36,7 +36,8 @@ class ElementCountDownTest extends SapphireTest
     public function testValidate()
     {
         /** @var ElementCountDown $element */
-        $element = $this->objFromFixture(ElementCountDown::class, 'invalid');
+        $element = ElementCountDown::create();
+        $element->Title = 'Element';
 
         $valid = $element->validate();
         $this->assertInstanceOf(ValidationResult::class, $valid);
