@@ -135,4 +135,29 @@ class ElementCountDown extends BaseElement
 
         return $array;
     }
+
+    /**
+     * @return \SilverStripe\ORM\ValidationResult
+     */
+    public function validate()
+    {
+        $result = parent::validate();
+
+        // skip if not written
+        if (!$this->isInDB()) {
+            return $result;
+        }
+
+        // skip if only sort changed
+        $changed = $this->getChangedFields(true);
+        if (count($changed) == 1 && array_key_exists('Sort', $changed)) {
+            return $result;
+        }
+
+        if (!$this->End) {
+            $result->addError('An end date and time is required before saving the Countdown Element record');
+        }
+
+        return $result;
+    }
 }
