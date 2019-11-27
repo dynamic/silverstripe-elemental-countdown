@@ -5,6 +5,7 @@ namespace Dynamic\Elements\CountDown\Tests;
 use Dynamic\Elements\CountDown\Elements\ElementCountDown;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\View\ArrayData;
 
 /**
@@ -17,6 +18,30 @@ class ElementCountDownTest extends SapphireTest
      * @var string
      */
     protected static $fixture_file = '../fixtures.yml';
+
+    /**
+     *
+     */
+    public function testGetSummary()
+    {
+        /** @var ElementCountDown $endonly  */
+        $endonly = $this->objFromFixture(ElementCountDown::class, 'endonly');
+        $end = $endonly->dbObject('End');
+        $this->assertEquals($endonly->getSummary(), "Count down to {$end->Date()} {$end->Time()}");
+
+        /** @var ElementCountDown $timezone  */
+        $timezone = $this->objFromFixture(ElementCountDown::class, 'timezone');
+        $end = $timezone->dbObject('End');
+        $tz = $timezone->dbObject('Timezone');
+        $this->assertEquals($timezone->getSummary(), "Count down to {$end->Date()} {$end->Time()} {$tz}");
+    }
+
+    public function testGetCMSFields()
+    {
+        /** @var ElementCountDown $element */
+        $element = $this->objFromFixture(ElementCountDown::class, 'endonly');
+        $this->assertInstanceOf(FieldList::class, $element->getCMSFields());
+    }
 
     /**
      *
