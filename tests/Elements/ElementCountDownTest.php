@@ -6,6 +6,8 @@ use Dynamic\Elements\CountDown\Elements\ElementCountDown;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\FieldType\DBDatetime;
+use SilverStripe\ORM\ValidationResult;
 use SilverStripe\View\ArrayData;
 
 /**
@@ -59,7 +61,26 @@ class ElementCountDownTest extends SapphireTest
     public function testValidate()
     {
         /** @var ElementCountDown $element */
-        $element = $this->objFromFixture(ElementCountDown::class, 'endonly');
+        $element = ElementCountDown::create();
+        $element->Title = 'Element';
+
+        $valid = $element->validate();
+        $this->assertInstanceOf(ValidationResult::class, $valid);
+        $this->assertTrue($valid->isValid());
+
+        $element->ID = 351120;
+        $this->assertFalse($element->validate()->isValid());
+
+        $element->ID = 0;
+        $element->write();
+
+        $element->Sort = 5;
+        $this->assertTrue($element->validate()->isValid());
+
+        $element->Title = 'New Title';
+        $this->assertFalse($element->validate()->isValid());
+
+        $element->End = DBDatetime::now();
         $this->assertTrue($element->validate()->isValid());
     }
 
