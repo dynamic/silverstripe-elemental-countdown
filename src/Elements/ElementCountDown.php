@@ -152,7 +152,7 @@ class ElementCountDown extends BaseElement
     public function setClientConfig()
     {
         $clientArray = [
-            'End' => "{$this->End}  {$this->Timezone}",
+            'End' => trim("{$this->End}  {$this->Timezone}"),
             'Elapse' => $this->Elapse,
         ];
 
