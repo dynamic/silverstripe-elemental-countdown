@@ -180,7 +180,7 @@ class ElementCountDown extends BaseElement
     protected function encodeArrayValues($array)
     {
         foreach ($array as $key => $val) {
-            $array[$key] = json_encode($val);
+            $array[$key] = trim(json_encode($val));
         }
 
         return $array;
